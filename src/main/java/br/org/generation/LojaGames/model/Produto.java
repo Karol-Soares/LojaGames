@@ -10,41 +10,46 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Entity
-@Table(name = "tb_produto")
+@Entity                                             		
+@Table(name = "tb_produtos")	
 public class Produto {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private Long id;
 	
-	@NotBlank(message = "Campo obrigatório")
-	@Size(min = 5, max= 100, message= "Campo obrigatório, com no mínimo 5 e máximo 100 caracteres.")
-	private String titulo;
+	@NotNull(message = "Nome é obrigatório!")                                       										
+	private String nome;
+	
+	@Size(max=500)
+	private String descricao;
+	
+	@NotNull(message = "Console é obrigatório!")
+	private String console;
+	
+	private int quantidade;
 	
 	@Column(name = "data_lancamento")
 	@JsonFormat(pattern = "yyyy-MM-dd")
-	private LocalDate dataLancamento;
+    private LocalDate dataLancamento;
 	
-	@NotBlank(message = "Campo obrigatório")
-	@Size(min = 5, max= 100, message= "Campo obrigatório, com no mínimo 5 e máximo 100 caracteres.")
-	private String console;
+	@JsonFormat(shape = JsonFormat.Shape.STRING)
+	@NotNull(message = "Preço é obrigatório!")
+	@Positive(message = "O preço deve ser maior do que zero!")
+	private BigDecimal preco;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING )
-	@NotBlank(message = "Campo obrigatório")
-	private BigDecimal valor;
-	
+	private String foto;
+
 	@ManyToOne
 	@JsonIgnoreProperties("produto")
-	private Categoria categori;
-
-	private Categoria categoria_id;
+	private Categoria categoria;
 
 	public Long getId() {
 		return id;
@@ -54,20 +59,20 @@ public class Produto {
 		this.id = id;
 	}
 
-	public String getTitulo() {
-		return titulo;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public LocalDate getDataLancamento() {
-		return dataLancamento;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDataLancamento(LocalDate dataLancamento) {
-		this.dataLancamento = dataLancamento;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public String getConsole() {
@@ -78,26 +83,46 @@ public class Produto {
 		this.console = console;
 	}
 
-	public BigDecimal getValor() {
-		return valor;
+	public int getQuantidade() {
+		return quantidade;
 	}
 
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	}
 
-	public Categoria getCategoria_id() {
-		return getCategoria_id();
+	public LocalDate getDataLancamento() {
+		return dataLancamento;
 	}
 
-	public void setCategoria_id(Categoria categoria_id) {
-		this.categoria_id = categoria_id;
+	public void setDataLancamento(LocalDate dataLancamento) {
+		this.dataLancamento = dataLancamento;
 	}
 
-	public Produto getCategoria() {
-		// TODO Auto-generated method stub
-		return null;
+	public BigDecimal getPreco() {
+		return preco;
 	}
 
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	
 	
 }

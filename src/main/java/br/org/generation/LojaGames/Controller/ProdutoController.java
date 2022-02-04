@@ -22,7 +22,7 @@ import br.org.generation.LojaGames.Repository.CategoriaRepository;
 import br.org.generation.LojaGames.Repository.ProdutoRepository;
 import br.org.generation.LojaGames.model.Produto;
 
-@RestController
+@RestController	
 @RequestMapping("/produtos")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProdutoController {
@@ -44,9 +44,9 @@ public class ProdutoController {
 			.orElse(ResponseEntity.notFound().build());
 	}
 	
-	@GetMapping("/titulo/{titulo}")
-	public ResponseEntity<List<Produto>> getByTitulo(@PathVariable String titulo){
-		return ResponseEntity.ok(produtoRepository.findAllByTituloContainingIgnoreCase(titulo));
+	@GetMapping("/nome/{nome}")
+	public ResponseEntity<List<Produto>> getByNome(@PathVariable String nome){
+		return ResponseEntity.ok(produtoRepository.findAllByNomeContainingIgnoreCase(nome));
 	}	
 	
 	@PostMapping
@@ -85,21 +85,16 @@ public class ProdutoController {
 				.orElse(ResponseEntity.notFound().build());
 	}
 
-	
-	
+
 	@GetMapping("/preco_maior/{preco}")
-	public ResponseEntity<List<Produto>> getPrecoMaiorQue(@PathVariable BigDecimal valor){ 
-		return ResponseEntity.ok(produtoRepository.findByValorGreaterThanOrderByPreco(valor));
+	public ResponseEntity<List<Produto>> getPrecoMaiorQue(@PathVariable BigDecimal preco){ 
+		return ResponseEntity.ok(produtoRepository.findByPrecoGreaterThanOrderByPreco(preco));
 	}
-	
 	
 	
 	@GetMapping("/preco_menor/{preco}")
-	public ResponseEntity<List<Produto>> getPrecoMenorQue(@PathVariable BigDecimal valor){ 
-		return ResponseEntity.ok(produtoRepository.findByValorLessThanOrderByPrecoDesc(valor));
+	public ResponseEntity<List<Produto>> getPrecoMenorQue(@PathVariable BigDecimal preco){ 
+		return ResponseEntity.ok(produtoRepository.findByPrecoLessThanOrderByPrecoDesc(preco));
 	}
-	
-
-
 	
 }
