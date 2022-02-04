@@ -7,12 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.org.generation.LojaGames.model.Produto;
 
-public interface ProdutoRepository extends JpaRepository<Produto, Long> {
+public interface ProdutoRepository extends JpaRepository<Produto, Long>{
 	
-	public List <Produto> findAllByTituloContainingIgnoreCase(String titulo);
-	
-	public List <Produto> findByValorGreaterThanOrderByPreco(BigDecimal valor);
-	
-	public List <Produto> findByValorLessThanOrderByPrecoDesc(BigDecimal valor);
+	public List<Produto> findAllByNomeContainingIgnoreCase(String nome);
+
+	public List <Produto> findByPrecoGreaterThanOrderByPreco(BigDecimal preco);
+	 
+	public List <Produto> findByPrecoLessThanOrderByPrecoDesc(BigDecimal preco);
 
 }
