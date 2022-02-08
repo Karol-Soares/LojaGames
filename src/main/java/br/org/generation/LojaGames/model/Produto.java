@@ -42,9 +42,11 @@ public class Produto {
 	
 	@ManyToOne
 	@JsonIgnoreProperties("produto")
-	private Categoria categori;
+	private Categoria categoria;
 
-	private Categoria categoria_id;
+	@ManyToOne
+	@JsonIgnoreProperties("produto")
+	private Produto produto;
 
 	public Long getId() {
 		return id;
@@ -86,18 +88,21 @@ public class Produto {
 		this.valor = valor;
 	}
 
-	public Categoria getCategoria_id() {
-		return getCategoria_id();
+	public Categoria getCategoria() {
+		return categoria;
 	}
 
-	public void setCategoria_id(Categoria categoria_id) {
-		this.categoria_id = categoria_id;
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
-	public Produto getCategoria() {
-		// TODO Auto-generated method stub
-		return null;
+	public Produto getProduto() {
+		return produto;
 	}
 
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
 	
+
 }
